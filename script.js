@@ -134,19 +134,29 @@ searchForm.addEventListener("submit",(e)=>{
     fetchSearchWeatherInfo(cityName);
 });
 
+const exception=document.querySelector('.excep_handle')
+
 async function fetchSearchWeatherInfo(city){
     loadingScreen.classList.add("active");
     userInfoContainer.classList.remove("active");
     grantAccessContainer.classList.remove("active");
+    exception.classList.remove('active');
     try{
         const response= await fetch(
             `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`);
     const data=await response.json();
+    if(response.ok) {
     loadingScreen.classList.remove("active");
     userInfoContainer.classList.add("active");
     renderWeatherInfo(data);
     }
-    catch(err){
 
+    else {
+       throw new Error('city not found');
+    }
+    }
+    catch(err){
+        loadingScreen.classList.remove("active");
+        exception.classList.add('active');
     }
 }
