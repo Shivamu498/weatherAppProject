@@ -21,6 +21,7 @@ function switchTab(clickedTab){
         currentTab.classList.remove("current-tab");
         currentTab=clickedTab;
         currentTab.classList.add("current-tab");
+        exception.classList.remove('active');
 
         if(!searchForm.classList.contains("active")){
           userInfoContainer.classList.remove("active");  
